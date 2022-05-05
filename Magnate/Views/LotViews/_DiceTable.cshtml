@@ -1,0 +1,27 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{
+    var hasBuilding = Model.lotViewModel.thisLot.Building.buildingNum != 0;
+    var hasOwner = Model.lotViewModel.thisLot.LotOwner != 0;
+}
+<!-- no owner & no building: dice table -->
+<!-- owner & no building: dice table -->
+<!-- owner & building: dice count & modifier -->
+<!-- no owner & a building: nothing -->
+<div class="dicetable">
+    @if (!hasBuilding)
+    {
+        for (int i = 1; i <= 4; i++)
+        {
+            string imgsrc = $"/images/building-{i}.png";
+            <div class="dicetablecolumn">
+                <div>
+                    <img class="buildingicon" src="@imgsrc" />
+                </div>
+                <div>
+                    @Model.lotViewModel.thisLot.DiceByType[i - 1]
+                </div>
+            </div>
+        }
+    }
+</div>

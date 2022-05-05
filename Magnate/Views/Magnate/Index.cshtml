@@ -1,0 +1,136 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Magnate</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/Magnate.js"></script>
+    <script src="~/js/ControllerCommands.js"></script>
+    <script src="~/js/Helper.js"></script>
+    <link rel="stylesheet" href="~/css/Magnate.css" />
+</head>
+<body>
+
+    <h1>Magnate</h1>
+
+    @*
+        new ViewDataDictionary(this.ViewData) { { "blocknum", 2 } }
+    *@
+    <div id="income">
+        @Html.Partial("_Income", Model)
+    </div>
+
+    <div>
+        <div>
+            <input id="marketslider" type="range" min="100" max="2800" step="100" value="300" width="400" />
+        </div>
+        <div>
+            Value: $<span id="marketvalue">300k</span>
+        </div>
+    </div>
+
+    <div id="topwrap">
+        <div id="city">
+            @Html.Partial("_City", Model)
+        </div>
+
+        <div id="menu">
+            @Html.Partial("../Menu/_Tabs", Model)
+            @Html.Partial("../Menu/_Body", Model)
+        </div>
+    </div>
+    
+    <div>
+        @Html.Partial("_Sell")
+    </div>
+
+    <div id="createnew">
+        @Html.Partial("_NewGame")
+    </div>
+
+
+</body>
+</html>
+
+<script>
+    $('.tab').on('click', function () {
+        $('.menubody').hide();
+
+        var id = parseInt($(this).data('value'));
+        $('.menubody[data-value="' + id + '"]').show();
+
+        $('input').prop('checked', false);
+    });
+
+    $('#marketslider').on('input', function () {
+        var val = parseInt($('#marketslider').val());
+        var newval = ConvertValueToCashString(val);
+
+        $('#marketvalue').text(newval);
+
+
+        $('.sale').each(function () {
+            var points = $(this).data('salepoints');
+            var price = points * val;
+
+            var saleprice = ConvertValueToCashString(price);
+
+            $(this).find('.salespan').text(saleprice);
+        });
+
+    });
+
+    function ConvertValueToCashString(val) {
+        var newval = val + "k";
+        if (val > 900) {
+            val = val / 1000;
+            newval = val + "M";
+        }
+
+        return newval;
+    }
+
+    $('input[name="radGameMode"]').on('click', function () {
+        var value = $(this).val();
+
+        if (value === "1") {
+            $('.menubody .tenanticonwrap').each(function () {
+                $(this).hide();
+                if ($(this).data('subtype') === 0) {
+                    $(this).show();
+                }
+            });
+        }
+        else {
+            $('.menubody .tenanticonwrap').each(function () {
+                $(this).hide();
+                if ($(this).data('subtype') !== 0) {
+                    $(this).show();
+                }
+            });
+        }
+        
+    });
+
+    $('.menubody .tenanticonwrap').on('click', function () {
+        $('.menubody .tenanticonwrap').removeClass('selected');
+        $(this).addClass('selected');
+    });
+</script>
+
+<style>
+    .menubody .tenanticonwrap {
+        cursor: pointer;
+    }
+
+    .menubody .tenanticonwrap.selected {
+        border: 4px solid red;
+    }
+</style>

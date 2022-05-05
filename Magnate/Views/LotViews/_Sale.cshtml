@@ -1,0 +1,18 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{
+    var salepoints = Model.lotViewModel?.thisLot?.salePoints ?? 0;
+    var salevalue = salepoints * Model.marketvalue;
+
+    string saleString = $"{salevalue}k";
+    if (salevalue > 900)
+    {
+        double millionsvalue = ((double)salevalue) / 1000;
+        saleString = $"{millionsvalue}M";
+    }
+}
+
+<div class="sale" data-salepoints="@salepoints">
+    @*<img class="saleimg" src="~/images/sell.png" />*@
+    $<span class="salespan">@saleString</span>
+</div>

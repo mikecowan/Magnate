@@ -1,0 +1,100 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{ 
+    Model.lotViewModel.thisLot = Model.lotViewModel.thisBlock.Lots.Find(l => l.id == Model.lotnum);
+
+    var hideCompanyWrap = Model.lotViewModel.thisLot.LotOwner == 0;
+    var hideBuildingWrap = Model.lotViewModel.thisLot.Building.buildingNum == 0;
+    var hideSaleWrap = Model.lotViewModel.thisLot.LotOwner == 0;
+
+    var hiddenCompanyWrap = hideCompanyWrap ? "hidden" : "";
+    var hiddenBuildingWrap = hideBuildingWrap ? "hidden" : "";
+    var hiddenSaleWrap = hideSaleWrap ? "hidden" : "";
+
+    var hideRow1 = hideCompanyWrap && hideBuildingWrap && hideSaleWrap;
+    var hiddenRow1 = hideRow1 ? "hidden" : "";
+
+
+    var hideTenantsWrap = Model.lotViewModel.thisLot.Building.buildingNum == 0;
+    var hideLotIncomeWrap = Model.lotViewModel.thisBlock.id == 0 || (Model.lotViewModel.thisLot?.Building?.Tenants?.Sum(x => x.income) ?? 0) == 0;
+
+    var hiddenTenantsWrap = hideTenantsWrap ? "hidden" : "";
+    var hiddenLotIncomeWrap = hideLotIncomeWrap ? "hidden" : "";
+
+    var hideRow2 = hideTenantsWrap && hideLotIncomeWrap;
+    var hiddenRow2 = hideRow2 ? "hidden" : "";
+
+
+    var hideDiceWrap = Model.lotViewModel.thisLot.LotOwner == 0 ||
+        Model.lotViewModel.thisLot.Building.buildingNum == 0 ||
+        Model.lotViewModel.thisLot.AdjacencyMods.Any() ||
+        Model.lotViewModel.thisLot.Building.Tenants.Count == Model.lotViewModel.thisLot.Building.tenantCapacity;
+    var hideDiceTableWrap = (Model.lotViewModel.thisLot.Building.buildingNum != 0 || Model.lotViewModel.thisBlock.id == 0) || Model.lotViewModel.thisLot.AdjacencyMods.Any();
+
+    var hiddenDiceWrap = hideDiceWrap ? "hidden" : "";
+    var hiddenDiceTableWrap = hideDiceTableWrap ? "hidden" : "";
+
+    var hideRow3 = hideDiceWrap && hideDiceTableWrap;
+    var hiddenRow3 = hideRow3 ? "hidden" : "";
+
+    // hide modifiers when:
+    // central block
+    // 
+    var hideModifiers = (!Model.lotViewModel.thisLot.AdjacencyMods.Any() &&
+        (Model.lotViewModel.thisLot.Building?.AdjacencyMod?.id ?? 0) == 0 &&
+        Model.lotViewModel.thisLot.Building.Tenants.All(x => x.AdjacencyMod != null && x.AdjacencyMod.id == 0))
+        ||
+        Model.lotViewModel.thisBlock.id == 0;
+    hideModifiers = Model.lotViewModel.thisBlock.id == 0;
+    var hideTenantDetails = true;
+
+    var hiddenModifiers = hideModifiers ? "hidden" : "";
+    var hiddenTenantDetails = hideTenantDetails ? "hidden" : "";
+
+    var hideRow4 = hideModifiers && hideTenantDetails;
+    var hiddenRow4 = hideRow4 ? "hidden" : "";
+}
+
+<div class="lot" data-lotnum="@Model.lotViewModel.thisLot.id" data-blocknum="@Model.lotViewModel.thisBlock.id">
+    <div class="lotrow @hiddenRow1">
+        <div class="inline companywrap @hiddenCompanyWrap">@Html.Partial("../LotViews/_Company", Model)</div>
+        <div class="inline buildingwrap @hiddenBuildingWrap">@Html.Partial("../LotViews/_Building", Model)</div>
+        <div class="inline salewrap @hiddenSaleWrap">@Html.Partial("../LotViews/_Sale", Model)</div>
+    </div>
+    <div class="lotrow @hiddenRow2">
+        <!-- hide until there is a building -->
+        <div class="inline lotincomewrap @hiddenLotIncomeWrap">@Html.Partial("../LotViews/_LotIncome", Model)</div>
+        <div class="inline tenantswrap @hiddenTenantsWrap">@Html.Partial("../LotViews/_Tenants", Model)</div>
+    </div>
+    <div class="lotrow @hiddenRow3">
+        <!-- no owner & no building: dice table -->
+        <!-- owner & no building: dice table -->
+        <!-- owner & building: dice count & modifier -->
+        <!-- no owner & a building: nothing -->
+        <div class="inline dicewrap @hiddenDiceWrap">@Html.Partial("../LotViews/_Dice", Model)</div>
+        <div class="inline dicetablewrap @hiddenDiceTableWrap">@Html.Partial("../LotViews/_DiceTable", Model)</div>
+    </div>
+    <div class="lotrow @hiddenRow4">
+        <div class="inline modifierwrap @hiddenModifiers">@Html.Partial("../LotViews/_Modifiers", Model)</div>
+        <div class="inline tenantdetailswrap @hiddenTenantDetails">@Html.Partial("../LotViews/_TenantDetails", Model)</div>
+    </div>
+
+
+    @*<div class="lotrow @hideCompanySale">
+        <div class="companywrap">@Html.Partial("../LotViews/_Company", Model)</div>
+        <div class="salewrap">@Html.Partial("../LotViews/_Sale", Model)</div>
+    </div>
+
+    <div class="lotrow @hideBuilding">
+        <div class="buildingwrap">@Html.Partial("../LotViews/_Building", Model)</div>
+    </div>
+    
+    <div class="lotrow @hideDice">
+        <div class="dicewrap">@Html.Partial("../LotViews/_Dice", Model)</div>
+    </div>
+
+    <div class="lotrow">
+        <div class="tenantswrap @hideDice">@Html.Partial("../LotViews/_Tenants", Model)</div>
+        <div class="modifierwrap">@Html.Partial("../LotViews/_Modifiers", Model)</div>
+    </div>*@
+</div>

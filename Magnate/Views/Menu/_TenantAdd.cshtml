@@ -1,0 +1,34 @@
+﻿@model Magnate.Models.MagnateViewModel
+<h2>Attract Tenants</h2>
+
+<div>
+    @for (int i = 1; i <= 4; i++)
+    {
+    <div>
+        @for (int j = 0; j < 4; j++)
+        {
+            string src = $"/images/tenant-{i}-{j}.png";
+            <div class="tenanticonwrap" data-type="@i" data-subtype="@j">
+                <img class="tenanticon type-@i" src="@src" />
+            </div>
+        }
+    </div>
+    }
+</div>
+
+<div>
+    <ul>
+        <li>
+            <label for="radiobutton-basicgame">
+                <input id="radiobutton-basicgame" type="radio" name="radGameMode" value="1" />
+                Basic Game
+            </label>
+        </li>
+        <li>
+            <label for="radiobutton-advancedgame">
+                <input id="radiobutton-advancedgame" type="radio" name="radGameMode" value="2" checked />
+                Advanced Game
+            </label>
+        </li>
+    </ul>
+</div>

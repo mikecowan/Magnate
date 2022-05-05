@@ -1,0 +1,12 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{
+
+}
+
+<div class="modifierdetails">
+    @foreach (var mod in Model.lotViewModel.thisLot.AdjacencyMods)
+    {
+        <div class="modifierdetail" data-modifierid="@mod.id"></div>
+    }
+</div>

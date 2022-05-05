@@ -1,0 +1,62 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+<div>
+    <button id="btnNewGame">Create New Game</button>
+</div>
+
+<div>
+    <p id="parBlockNum"></p>
+    <select id="selectBlock">
+        <option value="0">Select Block Name</option>
+        @for (int i = 1; i <= 10; i++)
+        {
+            <option value="@i">@Model.BlockNames[i]</option>
+        }
+    </select>
+</div>
+
+<div>
+    <ol id="listBlocks">
+
+    </ol>
+</div>
+
+<div>
+    <button id="btnNewGameSelect">Select</button>
+</div>
+
+<script>
+    var blockArray = [];
+
+    $('#btnNewGame').on('click', function () {
+
+        blockArray = [1, 2, 3, 4, 5, 6];
+        CreateNewGame(blockArray);
+        //$('#parBlockNum').text("Block #1:");
+        //blockArray = [];
+        //$('#listBlocks').html("");
+    });
+
+    $('#btnNewGameSelect').on('click', function () {
+        var selectedItemVal = $('#selectBlock option:checked').val();
+        blockArray.push(selectedItemVal);
+
+        var newText = "Block #" + (blockArray.length + 1) + ":";
+        $('#parBlockNum').text(newText);
+
+        $('#selectBlock option:eq(0)').prop('selected', true);
+        $('#selectBlock option[value="' + selectedItemVal + '"]').prop('disabled', true);
+
+        var listString = "";
+        for (var i = 0; i < blockArray.length; i++) {
+            listString += "<li>" + $('#selectBlock option:eq(' + blockArray[i] + ')').text() + "</li>";
+        }
+        $('#listBlocks').html(listString);
+
+        if (blockArray.length == 6) {
+            CreateNewGame();
+        }
+    });
+
+
+</script>

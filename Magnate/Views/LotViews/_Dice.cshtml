@@ -1,0 +1,17 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{
+    var dicecount = Model.lotViewModel.thisLot?.dice ?? 0;
+
+    var hasBuilding = Model.lotViewModel.thisLot.Building.buildingNum != 0;
+    var hasOwner = Model.lotViewModel.thisLot.LotOwner != 0;
+}
+<!-- no owner & no building: dice table -->
+<!-- owner & no building: dice table -->
+<!-- owner & building: dice count & modifier -->
+<!-- no owner & a building: nothing -->
+
+<div class="dice" data-dicecount="@dicecount">
+        <img class="icon" src="~/images/dice-icon.png" />
+        @dicecount
+</div>

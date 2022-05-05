@@ -1,0 +1,13 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{ 
+    var buildingnum = Model.lotViewModel.thisLot?.Building?.buildingNum ?? 0;
+    var tenantCount = Model.lotViewModel.thisLot?.Building?.Tenants?.Count ?? 0;
+
+    var tenantcountDisplay = buildingnum > 5 ? 3 * tenantCount : tenantCount;
+    var tenantcapacity = buildingnum > 5 ? 3 * (Model.lotViewModel.thisLot?.Building?.tenantCapacity ?? 0) : (Model.lotViewModel.thisLot?.Building?.tenantCapacity ?? 0);
+}
+
+<div class="tenants" data-tenantcount="@tenantCount">
+    <img class="icon" src="~/images/tenant-icon.png" /><span>: @tenantcountDisplay / @tenantcapacity</span>
+</div>

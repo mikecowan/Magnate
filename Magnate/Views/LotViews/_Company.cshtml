@@ -1,0 +1,15 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{
+    var cnum = Model.lotViewModel.thisLot?.LotOwner ?? 0;
+
+    var src = "";
+    if (cnum != 0)
+    {
+        src = $"images/company-{cnum}.png";
+    }
+}
+
+<div class="company" data-companynum="@cnum">
+    <img class="icon" src="@src" />
+</div>

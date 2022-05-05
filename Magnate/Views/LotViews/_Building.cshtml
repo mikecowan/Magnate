@@ -1,0 +1,10 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{
+    var buildingnum = Model.lotViewModel?.thisLot?.Building?.buildingNum ?? 0;
+    var imgsrc = buildingnum == 0 ? "" : $"/images/buildingfigure-{buildingnum}.png";
+}
+
+<div class="building" data-buildingnum="@buildingnum">
+    <img class="buildingfigure" src="@imgsrc" />
+</div>

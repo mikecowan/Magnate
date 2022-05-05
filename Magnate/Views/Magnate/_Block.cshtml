@@ -1,0 +1,35 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{ 
+    //var block = Model.Block2List.Find(bl => bl.id == ViewBag.blocknum);
+
+}
+
+<div class="block" data-blocknum="@Model.lotViewModel.thisBlock.id">
+    <div class="blockname">Block #@Model.lotViewModel.thisBlock.id: <span>@Model.lotViewModel.thisBlock.name</span></div>
+
+    <div class="blockrow">
+        @for (int i = 0; i < 3; i++)
+        {
+            Model.lotnum = i;
+            
+            <div class="lotwrap" data-lotnum="@i">@Html.Partial("_Lot", Model)</div>
+        }
+    </div>
+    <div class="blockrow">
+        @for (int i = 3; i < 6; i++)
+        {
+            Model.lotnum = i;
+
+            <div class="lotwrap" data-lotnum="@i">@Html.Partial("_Lot", Model)</div>
+        }
+    </div>
+    <div class="blockrow">
+        @for (int i = 6; i < 9; i++)
+        {
+            Model.lotnum = i;
+
+            <div class="lotwrap" data-lotnum="@i">@Html.Partial("_Lot", Model)</div>
+        }
+    </div>
+</div>

@@ -1,0 +1,223 @@
+﻿body {
+    font-family: Calibri;
+}
+
+/* top wrap */
+
+#topwrap > div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#income > div {
+    display: inline-block;
+}
+
+
+#city .blockrow {
+    margin: 0.7em 2em;
+}
+
+/* city */
+#city {
+    font-size: 12px;
+}
+
+
+/* block */
+
+#city .block {
+    border: 3px solid black;
+    width: 30em;
+    height: 30em;
+}
+
+/* lot */
+    #city .lot {
+        border: 1px solid black;
+        width: 8em;
+        height: 8em;
+        margin: .25em .25em;
+        cursor: pointer;
+    }
+
+    #city .lot:hover {
+        border: 1px solid gold;
+    }
+
+    #city .lotwrap {
+        display: inline-block;
+        vertical-align: top;
+        float: left;
+    }
+
+    #city .lotrow .inline {
+        display: inline-block;
+    }
+
+    
+
+#city .icon {
+    width: 20px;
+}
+
+#city .citycolumn {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#city .citycolumn:nth-child(2n+1) {
+    margin-top: 15em;
+}
+
+
+
+#city .dicetablecolumn {
+    display: inline-block;
+}
+
+#city .dicetablecolumn .buildingicon {
+    width: 12px;
+}
+
+#city .lotrow.hidden, #city .lotrow .hidden {
+    display: none;
+}
+
+
+
+#city .buildingfigure {
+    width: 20px;
+    height: 20px;
+}
+
+#city .saleimg {
+    width: 20px;
+}
+
+#city .tenantDetails {
+    display: none;
+}
+
+
+/*#city .building > div {
+    display: inline-block;
+}*/
+
+#city .buildingdata {
+    display: inline-block;
+}
+
+
+#city .modifiers .buildingicon {
+    width: 20px;
+}
+
+#city .modifiers .buildingicon-small {
+    width: 13px;
+}
+
+#city .modifiers .modicon {
+    width: 18px;
+}
+
+#city .modifiers .modicon-small {
+    width: 12px;
+}
+
+#tenantadd .buildingicon {
+    width: 25px;
+}
+
+#tenantadd .modicon {
+    width: 18px;
+}
+
+#build .buildgroup {
+    min-width: 10em;
+}
+
+
+
+
+
+
+
+
+#buy .icon {
+    width: 20px;
+}
+
+
+/* menu */
+#menu {
+    border: 1px solid black;
+    /*background-color: black;
+    color: white;*/
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tab {
+    display: inline-block;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.menubody {
+    display: none;
+}
+
+#inspectionwrap {
+    margin-top: 1em;
+    border: 1px solid black;
+    padding: 1em;
+}
+
+.menubody .buildingicon {
+    width: 25px;
+}
+
+.menubody .modicon {
+    width: 18px;
+}
+
+.menubody .icon {
+    width: 20px;
+}
+
+.menubody .tenanticon {
+    max-width: 80px;
+    /*height: 50px;*/
+}
+
+.menubody .saleimg {
+    width: 20px;
+}
+
+.menubody .buildingfigure {
+    width: 20px;
+    height: 20px;
+}
+
+.menubody .buildingdata {
+    display: inline-block;
+}
+
+.menubody .tenanticonwrap {
+    display: inline-block;
+}
+
+.menubody .tenantdata {
+    display: inline-block;
+}
+
+.menubody .lotrow > div {
+    display: inline-block;
+}

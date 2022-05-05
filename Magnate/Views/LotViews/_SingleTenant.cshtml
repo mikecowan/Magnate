@@ -1,0 +1,38 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{ 
+    var thisBlock = Model.Block2List.Find(bl => bl.id == Model.blocknum);
+    var lot = thisBlock.Lots.Find(l => l.id == Model.lotnum);
+    var bnum = thisBlock.id;
+
+    var hasTenantDetails = lot != null && lot.Building.buildingNum != 0 && lot.Building.Tenants != null && lot.Building.Tenants.All(x => x.income != 0);
+
+    //use Model.tenant that is set in the _Building view
+}
+
+<div class="singletenantRF" data-type="@Model.tenant.type" data-subtype="@Model.tenant.subtype">
+    <div class="tenantDetails">
+        @if (hasTenantDetails)
+        {
+            var src = $"/images/tenant-{Model.tenant.type}-{Model.tenant.subtype}.png";
+        <div>
+            <img class="tenanticon" src="@src" />
+            @*<div class="tenantdata">
+                @Model.tenant.income
+            </div>
+            <div class="tenantdata">
+                @for (int i = 0; i < Model.tenant.AdjacencyMod.affectedBuildingTypes.Count; i++)
+                {
+                    var imgsrc = $"/images/building-{Model.tenant.AdjacencyMod.affectedBuildingTypes[i]}.png";
+                    <img class="buildingicon" src="@imgsrc" />
+                }
+
+                @{
+                    var updownsrc = Model.tenant.AdjacencyMod.value == 1 ? "/images/up.png" : "/images/down.png";
+                }
+                <img class="modicon" src="@updownsrc" />
+            </div>*@
+        </div>
+        }
+    </div>
+</div>

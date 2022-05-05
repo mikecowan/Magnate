@@ -1,0 +1,15 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{ 
+
+}
+
+<div class="tenantDetails">
+    @foreach (var tenant in Model.lotViewModel.thisLot.Building.Tenants)
+    {
+        var src = $"/images/tenant-{tenant.type}-{tenant.subtype}.png";
+        <div class="singletenant" data-type="@tenant.type" data-subtype="@tenant.subtype">
+            <img class="tenanticon" src="@src" />
+        </div>
+    }
+</div>

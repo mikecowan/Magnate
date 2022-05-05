@@ -1,0 +1,68 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+<div class="column border">
+    @Html.Partial("_BlockView", Model, new ViewDataDictionary(this.ViewData) { { "blocknum", 6 } })
+    @Html.Partial("_BlockView", Model, new ViewDataDictionary(this.ViewData) { { "blocknum", 5 } })
+</div>
+<div class="column border">
+    @Html.Partial("_BlockView", Model, new ViewDataDictionary(this.ViewData) { { "blocknum", 1 } })
+    @Html.Partial("_BlockView", Model, new ViewDataDictionary(this.ViewData) { { "blocknum", 0 } })
+    @Html.Partial("_BlockView", Model, new ViewDataDictionary(this.ViewData) { { "blocknum", 4 } })
+</div>
+<div class="column border">
+    @Html.Partial("_BlockView", Model, new ViewDataDictionary(this.ViewData) { { "blocknum", 2 } })
+    @Html.Partial("_BlockView", Model, new ViewDataDictionary(this.ViewData) { { "blocknum", 3 } })
+</div>
+
+<style>
+    .column:nth-child(2n+1) {
+        margin-top: 4em;
+    }
+</style>
+
+<script>
+    $('.buildingType').on('click', function () {
+        $('.buildingType').removeClass('selected');
+        $('.buildingType').removeClass('affected');
+
+        $(this).addClass('selected');
+
+        var blocknum = $(this).data('blocknum');
+        var buildingtype = $(this).data('buildingtype');
+
+        // e.g. select residentials in block #1, highlight retailers & offices in blocks #6, #1, & #2
+        var neighborA = blocknum == 1 ? 6 : blocknum - 1;
+        var neighborB = blocknum == 6 ? 1 : blocknum + 1;
+
+        if (buildingtype == 1) {
+            $('#block-' + blocknum + ' .building-2').addClass('affected');
+            $('#block-' + neighborA + ' .building-2').addClass('affected');
+            $('#block-' + neighborB + ' .building-2').addClass('affected');
+
+            $('#block-' + blocknum + ' .building-3').addClass('affected');
+            $('#block-' + neighborA + ' .building-3').addClass('affected');
+            $('#block-' + neighborB + ' .building-3').addClass('affected');
+
+            $('#block-' + blocknum + ' .building-4').addClass('affected');
+            $('#block-' + neighborA + ' .building-4').addClass('affected');
+            $('#block-' + neighborB + ' .building-4').addClass('affected');
+        }
+        else if (buildingtype == 2 || buildingtype == 3) {
+            $('#block-' + blocknum + ' .building-1').addClass('affected');
+            $('#block-' + neighborA + ' .building-1').addClass('affected');
+            $('#block-' + neighborB + ' .building-1').addClass('affected');
+        }
+        else if (buildingtype == 4) {
+            $('#block-' + blocknum + ' .building-1').addClass('affected');
+            $('#block-' + neighborA + ' .building-1').addClass('affected');
+            $('#block-' + neighborB + ' .building-1').addClass('affected');
+
+            $('#block-' + blocknum + ' .building-4').addClass('affected');
+            $('#block-' + neighborA + ' .building-4').addClass('affected');
+            $('#block-' + neighborB + ' .building-4').addClass('affected');
+        }
+
+        
+    });
+
+</script>

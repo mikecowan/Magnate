@@ -1,0 +1,14 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@for (int i = 1; i <= 5; i++)
+{
+    string imageSrc = $"/images/company-{i}.png";
+    <div>
+        <div>
+            <img src=@imageSrc />
+        </div>
+        <div class="companyincomewrap" data-companynum="@i">
+            @Html.Partial("_SingleCompanyIncome", Model)
+        </div>
+    </div>
+}

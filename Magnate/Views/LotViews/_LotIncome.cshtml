@@ -1,0 +1,15 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{
+    int buildingIncome = Model.lotViewModel.thisLot?.Building?.Tenants?.Sum(x => x.income) ?? 0;
+    string incomeString = $"${buildingIncome}k";
+    if (buildingIncome > 900)
+    {
+        double inc = ((double)buildingIncome) / 1000;
+        incomeString = $"${inc}M";
+    }
+}
+
+<div class="">
+    @incomeString
+</div>

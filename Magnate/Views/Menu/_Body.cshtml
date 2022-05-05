@@ -1,0 +1,23 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+<div id="menubodywrap">
+    <div id="buy" class="menubody" style="display: block;" data-value="1">
+        @Html.Partial("../Menu/_Buy")
+    </div>
+
+    <div id="build" class="menubody" data-value="2">
+        @Html.Partial("../Menu/_Build")
+    </div>
+
+    <div id="tenantadd" class="menubody" data-value="3">
+        @Html.Partial("../Menu/_TenantAdd", Model)
+    </div>
+
+    <div id="inspect" class="menubody" data-value="4">
+        @Html.Partial("../Menu/_Inspect", Model)
+    </div>
+
+    <div id="reset" class="menubody" data-value="5">
+        Reset
+    </div>
+</div>

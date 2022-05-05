@@ -1,0 +1,14 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{
+    string incomeString = $"${Model.income}k";
+    if (Model.income > 900)
+    {
+        double inc = ((double)Model.income) / 1000;
+        incomeString = $"${inc}M";
+    }
+}
+
+<div class="singlecompanyincome">
+    @incomeString
+</div>

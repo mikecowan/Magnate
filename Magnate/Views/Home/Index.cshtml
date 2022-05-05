@@ -1,0 +1,268 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+<html>
+<head>
+    <title>Magnate</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>index</h1>
+
+    <div id="city">
+        @Html.Partial("_CityView", @Model)
+    </div>
+    
+
+    <div>
+        <button id="postList">Post List</button>
+    </div>
+    <div>
+        <button id="removeTenant">Remove Tenant</button>
+    </div>
+    <div>
+        <button id="addTenant">Add Tenant</button>
+    </div>
+
+    <p></p>
+    <div>
+        <button id="testPost">post block</button>
+    </div>
+    <div id="output"></div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+
+    });
+
+    $('p').on('click', function () {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SimpleClick", "Home")',
+            data: { input: 7 },
+            contentType: "application/x-www-form-urlencoded",
+            //dataType: "",
+            //traditional: true,
+            //cache: false,
+            success: function (data) {
+                $('#output').html(data);
+            }
+
+        });
+    });
+
+    $('#testPost').on('click', function () {
+
+        var test = { id: 7 };
+
+        var myBlock = {
+            block: { id: "7" }
+        };
+
+        //myBlock.push({ id: "7" });
+
+        ControllerCall(myBlock);
+
+    });
+
+    function ControllerCall(myBlock) {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PostBlock", "Home")',
+            //data: {
+            //    id: "7"
+            //},
+
+            data: myBlock,
+
+            success: function (data) {
+
+            }
+        });
+    }
+
+    $('#removeTenant').on('click', function () {
+
+
+    });
+
+    $('#addTenant').on('click', function () {
+        var selectedBlock = $('#city').find('.selected');
+
+        var data = {
+            Blocks: [],
+            blockNumber: selectedBlock.data('blocknum'),
+            tenantType: selectedBlock.data('buildingtype')
+        };
+
+        for (var i = 0; i < 7; i++) {
+            var block = {
+                id: i,
+                Tenants: [],
+                Dice: []
+            };
+
+            for (var j = 1; j <= 4; j++) {
+                var tenantItem = {
+                    type: j,
+                    count: parseInt($('#tenants-' + i + '-' + j).html())
+                };
+
+                block.Tenants.push(tenantItem);
+            }
+
+            data.Blocks.push(block);
+        }
+
+        AddTenant(data);
+    });
+
+    function AddTenant(jsData) {
+
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddTenant", "Home")',
+            //data: {
+            //    id: "7"
+            //},
+            data: jsData,
+            dataType: "html",
+            cache: false,
+            success: function (data) {
+                $('#city').html(data);
+            },
+            fail: function (data) {
+                var test = 1;
+            }
+        });
+
+    }
+
+    $('#postList').on('click', function () {
+        var jsData = {
+            Test: []
+        };
+
+        jsData.Test.push({ id: "7" });
+        jsData.Test.push({ id: "9" });
+        jsData.Test.push({ id: "8" });
+
+        postList(jsData);
+    });
+
+    function postList(jsData) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("PostList", "Home")',
+            //data: {
+            //    id: "7"
+            //},
+
+            data: jsData,
+
+            success: function (data) {
+
+            }
+        });
+    }
+                //contentType: "application/json; charset=utf-8",
+            //dataType: "json",
+            //traditional: true,
+            //cache: false,
+
+    
+
+
+
+</script>
+
+
+
+
+<style>
+    .border {
+        border: 1px solid black;
+    }
+
+    .column {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .block {
+        width: 8em;
+        height: 8em;
+    }
+
+    .buildingType, .buildingType * {
+        z-index: 1;
+    }
+
+    .buildingType > div {
+        display: inline-block;
+    }
+
+    .building-1 {
+        background-color: green;
+    }
+
+    .building-2 {
+        background-color: red;
+    }
+
+    .building-3 {
+        background-color: blue;
+    }
+
+    .building-4 {
+        background-color: yellow;
+    }
+
+    .dice {
+        float: right;
+    }
+
+    .selected .arrowicon {
+        visibility: visible;
+    }
+
+    .affected > .tenants, .affected > .dice {
+        color: white;
+        background-color: black;
+    }
+
+    .watermark {
+        margin: .05em .5em;
+        position: absolute;
+        z-index: 0;
+        display: block;
+        font-size: 80px;
+        color: lightgrey;
+    }
+
+    .icon {
+        width: 20px;
+    }
+
+    .arrowicon {
+        visibility: hidden;
+        width: 15px;
+    }
+
+    .tenants, .dice {
+        /*margin: 0 1em;*/
+    }
+
+    .arrowDiv {
+        /*position: absolute;
+        margin: 0;*/
+    }
+
+    .leftarrow {
+        float: right;
+    }
+</style>

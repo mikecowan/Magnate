@@ -1,0 +1,40 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+<div class="citycolumn">
+    @{
+        Model.lotViewModel.thisBlock = Model.Block2List[6];
+        <div class="blockwrap" data-blocknum="6">@Html.Partial("_Block", Model)</div>
+
+        Model.lotViewModel.thisBlock = Model.Block2List[5];
+        <div class="blockwrap" data-blocknum="5">@Html.Partial("_Block", Model)</div>
+    }
+</div>
+<div class="citycolumn">
+    @{
+        Model.lotViewModel.thisBlock = Model.Block2List[1];
+        <div class="blockwrap" data-blocknum="1">@Html.Partial("_Block", Model)</div>
+
+        Model.lotViewModel.thisBlock = Model.Block2List[0];
+        <div class="blockwrap" data-blocknum="0">@Html.Partial("_Block", Model)</div>
+
+        Model.lotViewModel.thisBlock = Model.Block2List[4];
+        <div class="blockwrap" data-blocknum="4">@Html.Partial("_Block", Model)</div>
+    }
+</div>
+<div class="citycolumn">
+    @{
+        Model.lotViewModel.thisBlock = Model.Block2List[2];
+        <div class="blockwrap" data-blocknum="2">@Html.Partial("_Block", Model)</div>
+
+        Model.lotViewModel.thisBlock = Model.Block2List[3];
+        <div class="blockwrap" data-blocknum="3">@Html.Partial("_Block", Model)</div>
+    }
+</div>
+
+<script>
+    $('.lot').on('click', function () {
+        LotClick($(this));
+    });
+</script>
+
+

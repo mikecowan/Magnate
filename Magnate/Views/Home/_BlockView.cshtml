@@ -1,0 +1,31 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+<div id="block-@ViewBag.blocknum" class="block border">
+    <div class="buildingType">
+        <span>Block #@ViewBag.blocknum</span>
+    </div>
+
+    <div class="buildingType">
+        <div>
+            <img class="icon" src="~/images/tenant-icon.png" />
+        </div>
+        <div class="dice">
+            <img class="icon" src="~/images/dice-icon.png" />
+        </div>
+    </div>
+
+    @for (int i = 1; i <= 4; i++)
+    {
+        var selected = Model.selectedBlockNumber == ViewBag.blocknum && Model.selectedTenantType == i ? "selected" : "";
+        var affected = Model.Blocks.Find(x => x.id == ViewBag.blocknum).Tenants.Find(y => y.type == i).affected ? "affected" : "";
+
+    <div class="buildingType building-@i @selected @affected" data-blocknum="@ViewBag.blocknum" data-buildingtype="@i">
+        <div class="arrowDiv rightarrow"><img class="arrowicon" src="~/images/right-arrow.png" /></div>
+        <div id="tenants-@ViewBag.blocknum-@i" class="tenants">@Model.Blocks.Find(x => x.id == ViewBag.blocknum).Tenants.Find(y => y.type == i).count</div>
+        <div class="arrowDiv leftarrow"><img class="arrowicon" src="~/images/left-arrow.png" /></div>
+        <div class="dice">@Model.Blocks.Find(x => x.id == ViewBag.blocknum).Dice.Find(y => y.type == i).count</div>
+    </div>
+    }
+</div>
+
+

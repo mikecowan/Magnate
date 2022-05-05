@@ -1,0 +1,81 @@
+﻿@model Magnate.Models.MagnateViewModel
+
+@{
+    var hasBuilding = Model.lotViewModel.thisLot.Building.buildingNum != 0;
+    var hasOwner = Model.lotViewModel.thisLot.LotOwner != 0;
+}
+<!-- no owner & no building: dice table -->
+<!-- owner & no building: dice table -->
+<!-- owner & building: dice count & modifier -->
+<!-- no owner & a building: nothing -->
+
+<div class="modifiers">
+    @if (hasBuilding)
+    {
+        var plusMods = new int[4];
+        var negMods = new int[4];
+
+        foreach (var mod in Model.lotViewModel.thisLot.AllUniqueAdjacenyMods)
+        {
+            foreach (var type in mod.affectedBuildingTypes)
+            {
+                if (mod.value == 1)
+                {
+                    plusMods[type - 1]++;
+                }
+                else if (mod.value == -1)
+                {
+                    negMods[type - 1]++;
+                }
+            }
+        }
+
+        <div>
+            @if (plusMods.Any(x => x > 0))
+            {
+                <img class="modicon-small" src="~/images/up.png" />
+                @for (int i = 0; i < 4; i++)
+                {
+                    var buildingSrc = $"/images/building-{i + 1}.png";
+                    for (int j = 0; j < plusMods[i]; j++)
+                    {
+                        <img class="buildingicon-small" src="@buildingSrc" />
+                    }
+                }
+            }
+        </div>
+        <div>
+            @if (negMods.Any(x => x > 0))
+            {
+                <img class="modicon-small" src="~/images/down.png" />
+                @for (int i = 0; i < 4; i++)
+                {
+                    var buildingSrc = $"/images/building-{i + 1}.png";
+                    for (int j = 0; j < negMods[i]; j++)
+                    {
+                        <img class="buildingicon-small" src="@buildingSrc" />
+                    }
+                }
+            }
+        </div>
+    }
+    else
+    {
+        foreach (var mod in Model.lotViewModel.thisLot.AdjacencyMods)
+        {
+            foreach (var type in mod.affectedBuildingTypes)
+            {
+                var buildingSrc = $"/images/building-{type}.png";
+                var upDown = mod.value == 1 ? "/images/up.png" : "/images/down.png";
+                <div>
+                    <img class="buildingicon" src="@buildingSrc" />
+                    <img class="modicon" src="@upDown" />
+                </div>
+            }
+        }
+    }
+
+    <div class="modifierdetailswrap" style="display: none;">
+        @Html.Partial("../LotViews/_ModifierDetails", Model)
+    </div>
+</div>
